@@ -52,8 +52,8 @@ export default {
     };
     return {
       loginForm: {
-        username: '',
-        password: '',
+        username: 'Admin',
+        password: '123321',
       },
       loginRules: {
         username: {
@@ -75,10 +75,17 @@ export default {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
           this.loading = true;
-          await setTimeout(() => {
-            console.log(this.loginForm);
-            this.loading = false;
-          }, 1000);
+          this.$store
+            .dispatch('login', this.loginForm)
+            .then(() => {
+              this.$router.push('/');
+              this.loading = false;
+            })
+            .catch(() => {
+              this.loading = false;
+            });
+        } else {
+          return false;
         }
       });
     },

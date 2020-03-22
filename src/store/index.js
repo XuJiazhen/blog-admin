@@ -10,10 +10,14 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     token: '',
+    isCollapse: false,
   },
   mutations: {
     SET_TOKEN(state, token) {
       state.token = token;
+    },
+    TOGGLE_SIDEBAR(state) {
+      state.isCollapse = !state.isCollapse;
     },
   },
   actions: {
@@ -31,6 +35,9 @@ const store = new Vuex.Store({
             reject(error);
           });
       });
+    },
+    toggleSidebar({ commit }) {
+      commit('TOGGLE_SIDEBAR');
     },
   },
   getters,

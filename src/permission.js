@@ -12,8 +12,6 @@ router.beforeEach(async (to, from, next) => {
     } else {
       const hasRoles = store.getters.roles && store.getters.roles.length > 0;
       if (hasRoles) {
-        console.log(hasRoles);
-
         next();
       } else {
         try {
@@ -23,7 +21,6 @@ router.beforeEach(async (to, from, next) => {
           router.addRoutes(assessRoutes);
           next({ ...to, replace: true });
         } catch (error) {
-          console.log(error);
           await store.dispatch('resetToken');
           next({ path: '/login' });
         }

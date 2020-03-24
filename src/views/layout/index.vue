@@ -31,9 +31,6 @@ export default {
       return this.$store.state.isCollapse;
     },
   },
-  mounted () {
-
-  },
 };
 </script>
 

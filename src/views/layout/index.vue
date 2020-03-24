@@ -31,6 +31,9 @@ export default {
       return this.$store.state.isCollapse;
     },
   },
+  mounted () {
+
+  },
 };
 </script>
 
@@ -56,6 +59,9 @@ export default {
     overflow: hidden;
     transition: margin-left 0.3s;
     border-left: 1px solid #e6e6e6;
+    .main {
+      padding: 20px;
+    }
   }
   &.hide {
     .sidebar-container {

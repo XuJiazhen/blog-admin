@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import getters from './getters';
 import { login } from '@/api/user';
-import { setToken } from '../utils/auth';
+import { setToken, removeToken } from '../utils/auth';
+
+// routes
+import { publicRoutes, privateRoutes } from '@/router';
 
 Vue.use(Vuex);
 
@@ -11,6 +13,8 @@ const store = new Vuex.Store({
   state: {
     token: '',
     isCollapse: false,
+    routes: [],
+    roles: [],
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -18,6 +22,12 @@ const store = new Vuex.Store({
     },
     TOGGLE_SIDEBAR(state) {
       state.isCollapse = !state.isCollapse;
+    },
+    SET_ROUTES(state, routes) {
+      state.routes = publicRoutes.concat(routes);
+    },
+    SET_ROLE(state, role) {
+      state.roles.push(role);
     },
   },
   actions: {
@@ -39,8 +49,37 @@ const store = new Vuex.Store({
     toggleSidebar({ commit }) {
       commit('TOGGLE_SIDEBAR');
     },
+    generateRoutes({ commit }) {
+      return new Promise(resolve => {
+        let accessRoutes = privateRoutes;
+        commit('SET_ROUTES', accessRoutes);
+        resolve(accessRoutes);
+      });
+    },
+    // roles mock methods
+    addRole({ commit }, role) {
+      return new Promise(resolve => {
+        commit('SET_ROLE', role);
+        resolve(role);
+      });
+    },
+    resetToken({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '');
+        commit('SET_ROLE', []);
+        removeToken();
+        resolve();
+      });
+    },
   },
-  getters,
+  getters: {
+    permission_routes: state => {
+      return state.routes;
+    },
+    roles: state => {
+      return state.roles;
+    },
+  },
 });
 
 export default store;

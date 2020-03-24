@@ -1,39 +1,37 @@
 <template>
-  <el-menu
-    mode="vertical"
-    class="menu-container"
-    :collapse="isCollapse"
-    :collapse-transition="false"
-  >
-    <el-menu-item index="1">
-      <i class="el-icon-house"></i>
-      <span>Home</span>
-    </el-menu-item>
-
-    <el-menu-item index="2">
-      <i class="el-icon-user"></i>
-      <span>Admin</span>
-    </el-menu-item>
-
-    <el-menu-item index="3">
-      <i class="el-icon-document"></i>
-      <span>Article</span>
-    </el-menu-item>
-
-    <el-menu-item index="4">
-      <i class="el-icon-setting"></i>
-      <span>Setting</span>
-    </el-menu-item>
+  <el-menu mode="vertical"
+           class="menu-container"
+           :collapse="isCollapse"
+           :collapse-transition="false"
+           :default-active="activeMenu">
+    <sidebar-item v-for="route in permission_routes"
+                  :key="route.path"
+                  :item="route"
+                  :basePath="route.path"
+                  class="el-menu-item"></sidebar-item>
   </el-menu>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import SidebarItem from './components/SidebarItem'
 export default {
   name: 'Sidebar',
+  components: {
+    SidebarItem
+  },
   computed: {
-    isCollapse() {
+    ...mapGetters([
+      'permission_routes'
+    ]),
+    isCollapse () {
       return this.$store.state.isCollapse;
     },
+    activeMenu () {
+      const { path } = this.$route
+      return path
+    },
+
   },
 };
 </script>
@@ -43,6 +41,8 @@ export default {
   height: 100%;
   border-right: none;
   .el-menu-item {
+    height: 59px;
+    padding: 0 !important;
     &.logo {
       height: 60px;
       text-align: center;

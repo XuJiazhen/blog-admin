@@ -47,13 +47,30 @@ export const privateRoutes = [
   {
     path: '/article',
     component: Layout,
-    redirect: '/article/index',
+    redirect: '/article/list',
+    meta: {
+      title: 'Article',
+      icon: 'document',
+    },
     children: [
       {
-        path: 'index',
-        name: 'Article',
+        path: 'create',
+        name: 'CreateArticle',
+        component: () => import('@/views/article/CreateArticle/index'),
+        meta: { title: 'Create', icon: 'edit-outline' },
+      },
+      {
+        path: 'edit/:id',
+        name: 'EditArticle',
+        component: () => import('@/views/article/EditArticle/index'),
+        meta: { title: 'Edit', icon: 'document' },
+        hidden: true,
+      },
+      {
+        path: 'list',
+        name: 'ArticleList',
         component: () => import('@/views/article/index'),
-        meta: { title: 'Article', icon: 'document' },
+        meta: { title: 'List', icon: 'notebook-2' },
       },
     ],
   },

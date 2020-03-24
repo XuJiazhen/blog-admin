@@ -1,12 +1,12 @@
 <template>
-  <div class="article-list-container">
-    Article List
+  <div class="edit-article-container">
+    Edit Article
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ArticleList',
+  name: 'EditArticle',
 };
 </script>
 

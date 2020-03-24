@@ -8,53 +8,65 @@
         </el-menu-item>
       </router-link>
     </template>
+
+    <el-submenu v-else :index="resolvePath(item.path)" popper-append-to-body>
+      <template slot="title">
+        <i :class="`el-icon-${item.meta.icon}`"></i>
+        <span slot="title">{{ item.meta.title }}</span>
+      </template>
+      <sidebar-item
+        v-for="child in item.children"
+        :key="child.path"
+        :item="child"
+        :basePath="item.path"
+      ></sidebar-item>
+    </el-submenu>
   </div>
 </template>
 
 <script>
-import path from 'path'
+import path from 'path';
 export default {
   name: 'SidebarItem',
   props: {
     item: {
       type: Object,
-      required: true
+      required: true,
     },
     basePath: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  data () {
+  data() {
     return {
-      onlyOneChild: null
-    }
+      onlyOneChild: null,
+    };
   },
   methods: {
-    hasOneShowingChild (children = [], parent) {
+    hasOneShowingChild(children = [], parent) {
       const showChildren = children.filter(item => {
         if (item.hidden) {
-          return false
+          return false;
         } else {
-          this.onlyOneChild = item
-          return true
+          this.onlyOneChild = item;
+          return true;
         }
-      })
+      });
       if (showChildren.length === 1) {
-        return true
+        return true;
       }
       if (showChildren.length === 0) {
-        this.onlyOneChild = { ...parent }
-        return true
+        this.onlyOneChild = { ...parent };
+        return true;
       }
-      return false
+      return false;
     },
-    resolvePath (routePath) {
-      return path.resolve(this.basePath, routePath)
+    resolvePath(routePath) {
+      return path.resolve(this.basePath, routePath);
     },
   },
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>

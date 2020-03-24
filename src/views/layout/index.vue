@@ -1,6 +1,5 @@
 <template>
-  <div class="layout-container"
-       :class="{ hide: isHide }">
+  <div class="layout-container" :class="{ hide: isHide }">
     <div class="sidebar-container">
       <sidebar />
     </div>
@@ -18,16 +17,16 @@
 <script>
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
-import MainApp from './MainApp'
+import MainApp from './MainApp';
 export default {
   name: 'Layout',
   components: {
     Sidebar,
     Navbar,
-    MainApp
+    MainApp,
   },
   computed: {
-    isHide () {
+    isHide() {
       return this.$store.state.isCollapse;
     },
   },
@@ -57,7 +56,7 @@ export default {
     transition: margin-left 0.3s;
     border-left: 1px solid #e6e6e6;
     .main {
-      padding: 20px;
+      padding: 10px;
     }
   }
   &.hide {

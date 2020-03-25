@@ -55,9 +55,9 @@ export default {
     overflow: hidden;
     transition: margin-left 0.3s;
     border-left: 1px solid #e6e6e6;
-    .main {
-      padding: 10px;
-    }
+    // .main {
+    //   padding: 10px;
+    // }
   }
   &.hide {
     .sidebar-container {

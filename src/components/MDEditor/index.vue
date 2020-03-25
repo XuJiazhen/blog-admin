@@ -14,22 +14,22 @@ export default {
       default: '',
     },
   },
-  data() {
+  data () {
     return {
       editor: null,
     };
   },
-  mounted() {
+  mounted () {
     this.initEditor();
   },
-  destroyed() {
+  destroyed () {
     this.destroyEditor();
   },
   methods: {
-    initEditor() {
+    initEditor () {
       this.editor = new Editor({
         el: document.querySelector('#editor'),
-        height: '300px',
+        height: '400px',
         initialEditType: 'markdown',
         previewStyle: 'vertical',
         language: 'en_US',
@@ -67,12 +67,12 @@ export default {
         this.$emit('input', this.editor.getHtml());
       });
     },
-    destroyEditor() {
+    destroyEditor () {
       if (!this.editor) return;
       this.editor.off('change');
       this.editor.remove();
     },
-    getHtml() {
+    getHtml () {
       return this.editor.getHtml();
     },
   },

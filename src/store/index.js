@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { login } from '@/api/user';
-import { setToken, removeToken } from '../utils/auth';
+import { setToken, removeToken, getToken } from '../utils/auth';
 
 // routes
 import { publicRoutes, privateRoutes } from '@/router';
@@ -11,7 +11,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    token: '',
+    token: getToken() ? getToken() : '',
     isCollapse: false,
     routes: [],
     roles: [],

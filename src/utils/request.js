@@ -9,6 +9,8 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
+    console.log(store.state.token);
+
     if (store.state.token) {
       config.headers['X-Admin-Token'] = getToken();
     }

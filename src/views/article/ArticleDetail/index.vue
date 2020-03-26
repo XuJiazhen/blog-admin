@@ -1,30 +1,34 @@
 <template>
   <div class="articleDtail-container">
-    <el-form
-      ref="articleForm"
-      :model="articleForm"
-      :rules="articleRules"
-      class="articleForm"
-    >
+    <el-form ref="articleForm"
+             :model="articleForm"
+             :rules="articleRules"
+             class="articleForm">
       <div class="subnav">
-        <el-button
-          type="primary"
-          size="small"
-          @click="submitForm"
-          :loading="loading"
-        >
-          Publish
-        </el-button>
+        <template v-if="!isEdit">
+          <el-button type="primary"
+                     size="small"
+                     @click="submitForm"
+                     :loading="loading">
+            Publish
+          </el-button>
+        </template>
+        <template v-else>
+          <el-button type="primary"
+                     size="small"
+                     @click="updateForm(id)"
+                     :loading="loading">
+            Update
+          </el-button>
+        </template>
       </div>
 
       <el-row>
         <el-col :span="24">
           <el-form-item prop="title">
-            <el-input
-              placeholder="Title"
-              v-model="articleForm.title"
-              :maxlength="100"
-            />
+            <el-input placeholder="Title"
+                      v-model="articleForm.title"
+                      :maxlength="100" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -32,22 +36,18 @@
       <el-row>
         <el-col :span="12">
           <el-form-item prop="author">
-            <el-input
-              placeholder="Author"
-              v-model="articleForm.author"
-              prefix-icon="el-icon-user"
-              :maxlength="12"
-            />
+            <el-input placeholder="Author"
+                      v-model="articleForm.author"
+                      prefix-icon="el-icon-user"
+                      :maxlength="12" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item>
-            <el-date-picker
-              placeholder="Date"
-              type="datetime"
-              format="yyyy-MM-dd HH:mm:ss"
-              v-model="articleForm.date"
-            />
+            <el-date-picker placeholder="Date"
+                            type="datetime"
+                            format="yyyy-MM-dd HH:mm:ss"
+                            v-model="articleForm.date" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -55,31 +55,37 @@
       <el-row>
         <el-col :span="24">
           <el-form-item prop="summary">
-            <el-input
-              v-model="articleForm.summary"
-              placeholder="Summary"
-              type="textarea"
-              autosize
-              :rows="1"
-              resize="none"
-            />
+            <el-input v-model="articleForm.summary"
+                      placeholder="Summary"
+                      type="textarea"
+                      autosize
+                      :rows="1"
+                      resize="none" />
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
-    <editor ref="editor" v-model="articleForm.content" class="editor"></editor>
+    <editor ref="editor"
+            v-model="articleForm.content"
+            class="editor"></editor>
   </div>
 </template>
 
 <script>
 import Editor from '@/components/MDEditor/index';
-import { createArticle } from '@/api/article';
+import { createArticle, getArticleByID, updateArticle } from '@/api/article';
 export default {
   name: 'ArticleDetail',
   components: {
     Editor,
   },
-  data() {
+  props: {
+    isEdit: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
     const validateRequire = (rule, value, callback) => {
       if (value === '') {
         const field = rule.field.replace(
@@ -93,12 +99,13 @@ export default {
       }
     };
     return {
+      id: (this.$route.params && this.$route.params.id) || '',
       articleForm: {
         title: '',
         author: '',
         date: undefined,
         summary: '',
-        content: '**Hello World**',
+        content: '',
       },
       articleRules: {
         title: {
@@ -122,12 +129,12 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    submitForm () {
       this.$refs.articleForm.validate(valid => {
         if (valid) {
           this.loading = true;
           createArticle(this.articleForm).then(response => {
-            console.log(response);
+            console.log('新建文章：', response);
             this.$notify({
               title: 'Success',
               message: 'Publish Successed',
@@ -142,9 +149,38 @@ export default {
         }
       });
     },
+    updateForm (id) {
+      this.loading = true
+      const data = this.articleForm
+      updateArticle(id, data).then((response) => {
+        console.log('更新文章：', response);
+
+        this.$notify({
+          title: 'Success',
+          message: 'Update Successed',
+          type: 'success',
+          duration: 2000,
+        });
+        this.loading = false;
+      })
+
+    },
+    fetchArticleData (id) {
+      getArticleByID(id).then((response) => {
+        const data = response.data
+        this.articleForm = data
+        this.setPageTitle()
+      })
+    },
+    setPageTitle () {
+      const title = 'Edit Article'
+      document.title = title
+    }
   },
-  mounted() {
-    console.log(this.$store.state);
+  created () {
+    if (this.isEdit) {
+      this.fetchArticleData(this.id)
+    }
   },
 };
 </script>

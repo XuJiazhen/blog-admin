@@ -76,13 +76,13 @@ export default {
       return this.editor.getHtml();
     },
   },
-  // watch: {
-  //   value(val, oldVal) {
-  //     if (val !== oldVal && val !== this.editor.getMarkdown()) {
-  //       this.editor.setMarkdown(val);
-  //     }
-  //   },
-  // },
+  watch: {
+    value (val, oldVal) {
+      if (val !== oldVal) {
+        this.editor.setHtml(val)
+      }
+    },
+  },
 };
 </script>
 

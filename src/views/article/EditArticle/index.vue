@@ -1,13 +1,13 @@
 <template>
-  <div class="edit-article-container">
-    Edit Article
-  </div>
+  <article-detail :isEdit='true'></article-detail>
 </template>
 
 <script>
+import ArticleDetail from '../ArticleDetail/index';
 export default {
   name: 'EditArticle',
+  components: {
+    ArticleDetail,
+  },
 };
 </script>
-
-<style></style>

@@ -7,3 +7,10 @@ export function createArticle(data) {
     data,
   });
 }
+
+export function getAllArticles() {
+  return request({
+    url: '/article',
+    method: 'get',
+  });
+}

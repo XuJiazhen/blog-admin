@@ -1,7 +1,6 @@
 <template>
   <section class="main-app-container">
-    <transition name="fade"
-                mode="out-in">
+    <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
   </section>
@@ -9,13 +8,13 @@
 
 <script>
 export default {
-  name: 'MainApp'
-}
+  name: 'MainApp',
+};
 </script>
 
 <style scoped lang="less">
 .fade-leave-active,
-.fade-transform-enter-active {
+.fade-enter-active {
   transition: all 0.5s;
 }
 

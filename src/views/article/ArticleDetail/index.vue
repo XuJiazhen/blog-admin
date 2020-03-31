@@ -136,6 +136,8 @@ export default {
     submitForm () {
       this.$refs.articleForm.validate(valid => {
         if (valid) {
+          this.articleForm.content = this.$refs.editor.getMarkdown()
+
           this.loading = true;
           createArticle(this.articleForm).then(response => {
             console.log('新建文章：', response);
@@ -156,6 +158,7 @@ export default {
     updateForm (id) {
       this.loading = true
       const data = this.articleForm
+      data.content = this.$refs.editor.getMarkdown()
       updateArticle(id, data).then((response) => {
         console.log('更新文章：', response);
 
@@ -171,7 +174,7 @@ export default {
     },
     fetchArticleData (id) {
       getArticleByID(id).then((response) => {
-        const data = response.data
+        const { data } = response
         this.articleForm = data
         this.setPageTitle()
       })
@@ -179,7 +182,7 @@ export default {
     setPageTitle () {
       const title = 'Edit Article'
       document.title = title
-    }
+    },
   },
   created () {
     if (this.isEdit) {

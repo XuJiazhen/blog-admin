@@ -75,11 +75,14 @@ export default {
     getHtml () {
       return this.editor.getHtml();
     },
+    getMarkdown () {
+      return this.editor.getMarkdown();
+    }
   },
   watch: {
     value (val, oldVal) {
       if (val !== oldVal && val !== this.editor.getHtml()) {
-        this.editor.setHtml(val)
+        this.editor.setMarkdown(val)
       }
     },
   },

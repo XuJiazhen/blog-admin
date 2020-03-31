@@ -78,7 +78,7 @@ export default {
   },
   watch: {
     value (val, oldVal) {
-      if (val !== oldVal) {
+      if (val !== oldVal && val !== this.editor.getHtml()) {
         this.editor.setHtml(val)
       }
     },

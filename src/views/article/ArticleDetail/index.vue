@@ -21,6 +21,7 @@
             Update
           </el-button>
         </template>
+        <cover-link v-model="articleForm.coverUrl"></cover-link>
       </div>
 
       <el-row>
@@ -72,12 +73,14 @@
 </template>
 
 <script>
+import CoverLink from './components/CoverLink'
 import Editor from '@/components/MDEditor/index';
 import { createArticle, getArticleByID, updateArticle } from '@/api/article';
 export default {
   name: 'ArticleDetail',
   components: {
     Editor,
+    CoverLink
   },
   props: {
     isEdit: {
@@ -106,6 +109,7 @@ export default {
         date: undefined,
         summary: '',
         content: '',
+        coverUrl: ''
       },
       articleRules: {
         title: {
@@ -123,7 +127,7 @@ export default {
         summary: {
           validator: validateRequire,
           trigger: 'blur',
-        },
+        }
       },
       loading: false,
     };

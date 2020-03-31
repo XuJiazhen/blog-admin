@@ -24,6 +24,7 @@
 - 评论系统
 - Setting 设置 Admin 界面相关内容
   - 换肤？
+- 错误页面
 - ...
 
 ## Project setup

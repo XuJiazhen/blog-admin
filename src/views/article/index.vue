@@ -96,7 +96,7 @@ export default {
     getList () {
       getAllArticles().then(response => {
         const result = response.data.map(item => {
-          const timestamp = Date.parse(item.date);
+          const timestamp = Date.parse(item.releasedAt);
 
           return {
             id: item._id,
@@ -111,7 +111,7 @@ export default {
   },
   filters: {
     parseTime (val) {
-      const dateFormat = '{y}-{m}-{d} {h}:{i}:{s}'
+      const dateFormat = '{y}.{m}.{d} {h}:{i}:{s}'
       const date = new Date(val)
       const dateInfoObj = {
         y: date.getFullYear(),

@@ -1,33 +1,27 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      class="login-form"
-      :model="loginForm"
-      :rules="loginRules"
-    >
+    <el-form ref="loginForm"
+             class="login-form"
+             :model="loginForm"
+             :rules="loginRules">
       <h1 class="title">Admin Login</h1>
 
       <el-form-item prop="username">
-        <el-input
-          placeholder="Username"
-          type="text"
-          v-model="loginForm.username"
-        ></el-input>
+        <el-input placeholder="Username"
+                  type="text"
+                  v-model="loginForm.username"></el-input>
       </el-form-item>
 
       <el-form-item prop="password">
-        <el-input
-          placeholder="Password"
-          type="password"
-          show-password
-          v-model="loginForm.password"
-        ></el-input>
+        <el-input placeholder="Password"
+                  type="password"
+                  show-password
+                  v-model="loginForm.password"></el-input>
       </el-form-item>
 
-      <el-button :loading="loading" class="login" @click="handleLogin"
-        >Login</el-button
-      >
+      <el-button :loading="loading"
+                 class="login"
+                 @click="handleLogin">Login</el-button>
     </el-form>
   </div>
 </template>
@@ -35,9 +29,9 @@
 <script>
 export default {
   name: 'Login',
-  data() {
+  data () {
     const validateUsername = (rule, value, callback) => {
-      if (value !== 'Admin') {
+      if (value !== 'XuJiazhen') {
         return callback(new Error('Please enter the correct user name.'));
       } else {
         callback();
@@ -52,8 +46,8 @@ export default {
     };
     return {
       loginForm: {
-        username: 'Admin',
-        password: '123321',
+        username: 'XuJiazhen',
+        password: '123321...',
       },
       loginRules: {
         username: {
@@ -71,7 +65,7 @@ export default {
     };
   },
   methods: {
-    handleLogin() {
+    handleLogin () {
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
           this.loading = true;

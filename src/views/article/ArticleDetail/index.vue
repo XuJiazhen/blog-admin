@@ -48,7 +48,7 @@
             <el-date-picker placeholder="Date"
                             type="datetime"
                             format="yyyy-MM-dd HH:mm:ss"
-                            v-model="articleForm.date" />
+                            v-model="articleForm.releasedAt" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -106,10 +106,11 @@ export default {
       articleForm: {
         title: '',
         author: '',
-        date: undefined,
         summary: '',
         content: '',
-        coverUrl: ''
+        coverUrl: '',
+        releasedAt: null,
+        updatedAt: null
       },
       articleRules: {
         title: {
@@ -137,10 +138,8 @@ export default {
       this.$refs.articleForm.validate(valid => {
         if (valid) {
           this.articleForm.content = this.$refs.editor.getMarkdown()
-
           this.loading = true;
-          createArticle(this.articleForm).then(response => {
-            console.log('新建文章：', response);
+          createArticle(this.articleForm).then(() => {
             this.$notify({
               title: 'Success',
               message: 'Publish Successed',
@@ -150,7 +149,6 @@ export default {
             this.loading = false;
           });
         } else {
-          console.log('Submit Error');
           return false;
         }
       });
@@ -158,9 +156,9 @@ export default {
     updateForm (id) {
       this.loading = true
       const data = this.articleForm
+      data.updatedAt = new Date()
       data.content = this.$refs.editor.getMarkdown()
-      updateArticle(id, data).then((response) => {
-        console.log('更新文章：', response);
+      updateArticle(id, data).then(() => {
 
         this.$notify({
           title: 'Success',

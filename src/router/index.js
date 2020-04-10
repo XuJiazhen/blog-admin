@@ -91,7 +91,7 @@ export const privateRoutes = [
 
 const createRouter = () =>
   new VueRouter({
-    mode: 'hash',
+    mode: 'history',
     scrollBehavior: () => ({ y: 0 }),
     routes: publicRoutes
   });

@@ -72,7 +72,8 @@ export default {
           this.$store
             .dispatch('login', this.loginForm)
             .then(() => {
-              this.$router.push('/');
+              // this.$router.push('/dashboard');
+              this.$router.go()
               this.loading = false;
             })
             .catch(() => {

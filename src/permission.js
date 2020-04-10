@@ -35,6 +35,6 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 
-router.afterEach(() => {
-  console.log('Leave current route.');
+router.afterEach(to => {
+  console.log(`Leave current route: ${to.path}`);
 });

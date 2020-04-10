@@ -14,7 +14,7 @@ const store = new Vuex.Store({
     token: getToken() ? getToken() : '',
     isCollapse: false,
     routes: [],
-    roles: [],
+    roles: []
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -28,7 +28,7 @@ const store = new Vuex.Store({
     },
     SET_ROLE(state, role) {
       state.roles.push(role);
-    },
+    }
   },
   actions: {
     login({ commit }, userInfo) {
@@ -70,7 +70,7 @@ const store = new Vuex.Store({
         removeToken();
         resolve();
       });
-    },
+    }
   },
   getters: {
     permission_routes: state => {
@@ -78,8 +78,8 @@ const store = new Vuex.Store({
     },
     roles: state => {
       return state.roles;
-    },
-  },
+    }
+  }
 });
 
 export default store;

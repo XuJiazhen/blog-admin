@@ -9,7 +9,7 @@ export const publicRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index'),
-    hidden: true,
+    hidden: true
   },
   {
     path: '/',
@@ -19,15 +19,15 @@ export const publicRoutes = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
-        meta: { title: 'Dashboard', icon: 'house' },
-      },
-    ],
+        meta: { title: 'Dashboard', icon: 'house' }
+      }
+    ]
   },
   {
     path: '*',
     component: () => import('@/views/404/index'),
-    hidden: true,
-  },
+    hidden: true
+  }
 ];
 
 export const privateRoutes = [
@@ -40,9 +40,9 @@ export const privateRoutes = [
         path: 'index',
         name: 'Admin',
         component: () => import('@/views/admin/index'),
-        meta: { title: 'Admin', icon: 'user' },
-      },
-    ],
+        meta: { title: 'Admin', icon: 'user' }
+      }
+    ]
   },
   {
     path: '/article',
@@ -50,29 +50,29 @@ export const privateRoutes = [
     redirect: '/article/list',
     meta: {
       title: 'Article',
-      icon: 'document',
+      icon: 'document'
     },
     children: [
       {
         path: 'create',
         name: 'CreateArticle',
         component: () => import('@/views/article/CreateArticle/index'),
-        meta: { title: 'Create', icon: 'edit-outline' },
+        meta: { title: 'Create', icon: 'edit-outline' }
       },
       {
         path: 'edit/:id',
         name: 'EditArticle',
         component: () => import('@/views/article/EditArticle/index'),
         meta: { title: 'Edit', icon: 'document' },
-        hidden: true,
+        hidden: true
       },
       {
         path: 'list',
         name: 'ArticleList',
         component: () => import('@/views/article/index'),
-        meta: { title: 'List', icon: 'notebook-2' },
-      },
-    ],
+        meta: { title: 'List', icon: 'notebook-2' }
+      }
+    ]
   },
   {
     path: '/setting',
@@ -83,16 +83,17 @@ export const privateRoutes = [
         path: 'index',
         name: 'Setting',
         component: () => import('@/views/setting/index'),
-        meta: { title: 'Setting', icon: 'setting' },
-      },
-    ],
-  },
+        meta: { title: 'Setting', icon: 'setting' }
+      }
+    ]
+  }
 ];
 
 const createRouter = () =>
   new VueRouter({
+    mode: 'hash',
     scrollBehavior: () => ({ y: 0 }),
-    routes: publicRoutes,
+    routes: publicRoutes
   });
 
 const router = createRouter();

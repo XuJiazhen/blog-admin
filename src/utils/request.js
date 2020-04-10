@@ -2,9 +2,14 @@ import axios from 'axios';
 import store from '../store';
 import { getToken } from './auth';
 
+const appConfig = require('../app.config');
+
 const service = axios.create({
-  baseURL: 'http://localhost:3000/',
-  timeout: 3000,
+  baseURL:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:8130'
+      : appConfig.BASE_URL,
+  timeout: 3000
 });
 
 service.interceptors.request.use(
@@ -17,7 +22,7 @@ service.interceptors.request.use(
   },
   error => {
     return Promise.reject(error);
-  },
+  }
 );
 
 export default service;

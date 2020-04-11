@@ -1,12 +1,14 @@
 <template>
   <el-breadcrumb separator="/">
-    <el-breadcrumb-item v-for="item in matchedList"
-                        :key="item.path">
-      <span v-if="new RegExp(/\/:id/).test(item.path)"
-            class="paramRoute">{{item.meta.title}}: {{id}}</span>
-      <router-link v-else
-                   :to="item.path">{{item.meta.title}}</router-link>
-    </el-breadcrumb-item>
+    <transition-group name="breadcrumb">
+      <el-breadcrumb-item v-for="item in matchedList"
+                          :key="item.path">
+        <span v-if="new RegExp(/\/:id/).test(item.path)"
+              class="paramRoute">{{item.meta.title}}: {{id}}</span>
+        <router-link v-else
+                     :to="item.path">{{item.meta.title}}</router-link>
+      </el-breadcrumb-item>
+    </transition-group>
   </el-breadcrumb>
 </template>
 
@@ -63,5 +65,22 @@ export default {
 .paramRoute {
   color: #97a8be;
   cursor: default;
+}
+
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all 0.5s;
+}
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+.breadcrumb-move {
+  transition: all 0.5s;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
 }
 </style>

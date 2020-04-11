@@ -20,6 +20,24 @@ html {
           visibility: hidden;
         }
       }
+      .el-breadcrumb {
+        .el-breadcrumb__item {
+          a {
+            color: #303133;
+            font-weight: normal;
+            &:hover {
+              color: #409eff;
+            }
+            &.router-link-exact-active {
+              color: #97a8be;
+              cursor: default;
+            }
+          }
+          .el-breadcrumb__separator {
+            user-select: none;
+          }
+        }
+      }
     }
   }
 }

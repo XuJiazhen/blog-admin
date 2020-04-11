@@ -18,6 +18,7 @@ export const publicRoutes = [
     children: [
       {
         path: 'dashboard',
+        name: 'Dashboard',
         component: () => import('@/views/dashboard/index'),
         meta: { title: 'Dashboard', icon: 'house' }
       }

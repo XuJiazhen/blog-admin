@@ -46,8 +46,8 @@ export default {
     };
     return {
       loginForm: {
-        username: 'XuJiazhen',
-        password: '123321...',
+        username: '',
+        password: '',
       },
       loginRules: {
         username: {
@@ -72,7 +72,6 @@ export default {
           this.$store
             .dispatch('login', this.loginForm)
             .then(() => {
-              // this.$router.push('/dashboard');
               this.$router.go()
               this.loading = false;
             })

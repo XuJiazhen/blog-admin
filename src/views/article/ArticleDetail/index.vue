@@ -29,7 +29,7 @@
           <el-form-item prop="title">
             <el-input placeholder="Title"
                       v-model="articleForm.title"
-                      :maxlength="100" />
+                      maxlength="100" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -40,7 +40,7 @@
             <el-input placeholder="Author"
                       v-model="articleForm.author"
                       prefix-icon="el-icon-user"
-                      :maxlength="12" />
+                      maxlength="12" />
           </el-form-item>
         </el-col>
         <el-col :span="12">

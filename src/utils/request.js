@@ -7,22 +7,22 @@ const appConfig = require('../app.config');
 const service = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:8130'
+      ? 'http://localhost:8130/api/'
       : appConfig.BASE_URL,
-  timeout: 3000
+  timeout: 3000,
 });
 
 service.interceptors.request.use(
-  config => {
+  (config) => {
     if (store.state.token) {
       config.headers['X-Admin-Token'] = getToken();
     }
 
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export default service;

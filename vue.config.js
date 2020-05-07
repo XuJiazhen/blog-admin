@@ -15,8 +15,8 @@ module.exports = {
     name: appConfig.NAME,
     resolve: {
       alias: {
-        '@': resolve('src')
-      }
-    }
-  }
+        '@': resolve('src'),
+      },
+    },
+  },
 };

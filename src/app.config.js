@@ -1,4 +1,4 @@
 module.exports = {
-  BASE_URL: 'http://api.xujiazhen.website/api/',
+  BASE_URL: 'https://api.xujiazhen.website/api/',
   NAME: 'Admin',
 };
